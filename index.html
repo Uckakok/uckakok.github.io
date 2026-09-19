@@ -85,6 +85,20 @@
   .gwiazdki{color:#ffcc00;font-size:20px;}
   hr.ozdobna{border:none;height:8px;background:repeating-linear-gradient(90deg,#ff0000 0 12px,#ffff00 12px 24px,#00ff00 24px 36px,#00ffff 36px 48px,#ff00ff 48px 60px);}
   footer{text-align:center;font-size:12px;background:#000;color:#00ff00;padding:10px;border:3px outset #808080;margin:10px 0;}
+  
+  .zegar-box{
+    display:inline-block;
+    background:#000;
+    color:#ff0000;
+    font-family:"Courier New",monospace;
+    font-weight:bold;
+    font-size:16px;
+    padding:4px 10px;
+    border:2px inset #c0c0c0;
+    margin-top:6px;
+  }
+  .dwukropek{display:inline-block;width:8px;text-align:center;}
+  
   .wpis{background:#fff;border:1px dotted #808080;padding:5px;margin:5px 0;font-size:13px;}
   .kotwice a{color:var(--link);}
   .clip{vertical-align:middle;}
@@ -142,6 +156,15 @@
         <h3>LICZNIK ODWIEDZIN</h3>
         <span class="licznik" id="licznik">------</span><br>
         <small>Jestes <b id="numerGoscia">...</b> osoba, ktora odwiedzila strone Mai!</small>
+      </div>
+
+      <!-- SEKCJA IMIENIN I ZODIAKU MAI -->
+      <div class="box" style="font-size:12px">
+        <h3>INFO &amp; IMIENINY</h3>
+        <b>Dzisiaj imieniny:</b><br>
+        <span id="imieninyDzis" style="color:#000080">Ładowanie...</span><br><br>
+        <b>Znak zodiaku Mai:</b><br>
+        <span>♊ Bliźnięta / ♍ Panna</span>
       </div>
 
       <div class="box">
@@ -211,15 +234,117 @@
   <div class="pasekClipart">🌻 🐾 💖 🎠 🍭 🌙 🎀 🐣 🍓 🎪 🧚 🌷</div>
 
   <footer>
-    zyczeniaDlaMai.pl &nbsp;::&nbsp; Wyprodukowane specjalnie dla Mai! 🎂🎈
+    zyczeniaDlaMai.pl &nbsp;::&nbsp; Wyprodukowane specjalnie dla Mai! 🎂🎈<br>
+    <!-- ZEGAREK RETRO Z MIGAJĄCYM DWUKROPKIEM -->
+    <div class="zegar-box">
+      📅 <span id="dataDzis">00-00-0000</span> | ⏰ <span id="zegarGodz">00</span><span id="zegarMiga" class="dwukropek">:</span><span id="zegarMin">00</span><span class="dwukropek">:</span><span id="zegarSek">00</span>
+    </div>
   </footer>
 
+<!-- RETRO ODTWARZACZ DŹWIĘKU -->
+<div id="retroModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:99999;display:flex;align-items:center;justify-content:center;">
+  <div style="background:#c0c0c0;border:4px outset #ffffff;padding:15px;width:320px;text-align:center;box-shadow:5px 5px 0 #000;font-family:'Comic Sans MS',cursive;">
+    <div style="background:#000080;color:#fff;padding:3px;font-weight:bold;margin:-15px -15px 10px -15px;text-align:left;font-size:12px;">
+      SYSTEM ALERT :: OSTRZEŻENIE DŹWIĘKOWE
+    </div>
+    <div style="font-size:32px;margin:10px 0;">📻 🎶 🔊</div>
+    <p style="font-size:13px;color:#000;margin:10px 0;">
+      Strona zawiera oprawę muzyczną w jakości Synth MIDI.
+    </p>
+    <button onclick="wlaczOdtwarzacz()" style="font-size:14px;font-weight:bold;padding:6px 16px;background:linear-gradient(180deg,#fff,#c0c0c0);border:2px outset #fff;cursor:pointer;margin-top:5px;">
+      [ OK - WŁĄCZ MUZYKĘ ]
+    </button>
+  </div>
 </div>
 
 <script>
-  // ========================================================
-  // PODMIEN PONIZSZE DANE NA KREDENCJALE ZE SWOJEGO SUPABASE
-  // ========================================================
+  // --- ZEGAREK RETRO Z MIGAJĄCYM DWUKROPKIEM ---
+  let miga = true;
+  function aktualizujZegar() {
+    const teraz = new Date();
+    const d = String(teraz.getDate()).padStart(2, '0');
+    const m = String(teraz.getMonth() + 1).padStart(2, '0');
+    const y = teraz.getFullYear();
+    const hh = String(teraz.getHours()).padStart(2, '0');
+    const mm = String(teraz.getMinutes()).padStart(2, '0');
+    const ss = String(teraz.getSeconds()).padStart(2, '0');
+
+    document.getElementById('dataDzis').textContent = d + '.' + m + '.' + y + ' r.';
+    document.getElementById('zegarGodz').textContent = hh;
+    document.getElementById('zegarMin').textContent = mm;
+    document.getElementById('zegarSek').textContent = ss;
+    
+    // Efekt migania dwukropka
+    const elMiga = document.getElementById('zegarMiga');
+    if (elMiga) elMiga.style.visibility = miga ? 'visible' : 'hidden';
+    miga = !miga;
+  }
+  setInterval(aktualizujZegar, 500);
+  aktualizujZegar();
+
+  // --- GENERATOR IMIENIN (LOKALNA BAZA RETRO) ---
+  function obsluzImieniny() {
+    const imieninyBaza = {
+      "01-01": "Mieczysława, Mieszka", "04-09": "Marii, Mikołaja", "05-04": "Moniki, Floriana",
+      "05-12": "Pankracego, Franciszka", "09-12": "Marii, Gwido", "09-19": "Konstancji, Januarego",
+      "09-20": "Eustachego, Filipa", "09-21": "Mateusza, Hipolita", "09-22": "Tomasza, Maurycego"
+    };
+    const t = new Date();
+    const k = String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0');
+    const dzis = imieninyBaza[k] || "Mai, Jakuba, Franciszka";
+    document.getElementById('imieninyDzis').textContent = dzis;
+  }
+  obsluzImieniny();
+
+  // --- AUDIO SYNTH (SoundBlaster / Chiptune) ---
+  let audioCtx = null;
+  let isPlaying = false;
+
+  function zagrajNute(freq, dur, startTime) {
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    
+    osc.type = 'square'; 
+    osc.frequency.setValueAtTime(freq, startTime);
+    
+    gain.gain.setValueAtTime(0.15, startTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, startTime + dur);
+    
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    
+    osc.start(startTime);
+    osc.stop(startTime + dur);
+  }
+
+  function grajMelodieUrodzinowa() {
+    if (!isPlaying) return;
+    const now = audioCtx.currentTime;
+    
+    const notes = [
+      { f: 261.63, d: 0.3 }, { f: 261.63, d: 0.3 }, { f: 293.66, d: 0.6 }, { f: 261.63, d: 0.6 }, { f: 349.23, d: 0.6 }, { f: 329.63, d: 1.0 },
+      { f: 261.63, d: 0.3 }, { f: 261.63, d: 0.3 }, { f: 293.66, d: 0.6 }, { f: 261.63, d: 0.6 }, { f: 392.00, d: 0.6 }, { f: 349.23, d: 1.0 },
+      { f: 261.63, d: 0.3 }, { f: 261.63, d: 0.3 }, { f: 523.25, d: 0.6 }, { f: 440.00, d: 0.6 }, { f: 349.23, d: 0.6 }, { f: 329.63, d: 0.6 }, { f: 293.66, d: 0.6 },
+      { f: 466.16, d: 0.3 }, { f: 466.16, d: 0.3 }, { f: 440.00, d: 0.6 }, { f: 349.23, d: 0.6 }, { f: 392.00, d: 0.6 }, { f: 349.23, d: 1.2 }
+    ];
+
+    let t = now;
+    notes.forEach(n => {
+      zagrajNute(n.f, n.d, t);
+      t += n.d + 0.08;
+    });
+
+    setTimeout(() => { if (isPlaying) grajMelodieUrodzinowa(); }, (t - now) * 1000 + 500);
+  }
+
+  function wlaczOdtwarzacz() {
+    document.getElementById('retroModal').style.display = 'none';
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    isPlaying = true;
+    grajMelodieUrodzinowa();
+  }
+
+  // --- SUPABASE CONFIG ---
   const SUPABASE_URL = 'https://fhwjoyadubtmrmfmsumo.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_CyuXAd-GMKkto8GzdVVaYg_ZzSnzLoA';
   const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -235,7 +360,6 @@
   // --- LICZNIK ODWIEDZIN ---
   async function obsluzLicznik() {
     try {
-      // Wywołujemy bezpieczną funkcję SQL inkrementującą licznik
       let { data, error } = await db.rpc('increment_counter', { row_id: 1 });
       if (error) throw error;
       const val = String(data).padStart(7, '0');
