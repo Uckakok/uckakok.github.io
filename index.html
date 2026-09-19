@@ -160,12 +160,37 @@
 
       <!-- SEKCJA IMIENIN I ZODIAKU MAI -->
       <div class="box" style="font-size:12px">
-        <h3>INFO &amp; IMIENINY</h3>
-        <b>Dzisiaj imieniny:</b><br>
-        <span id="imieninyDzis" style="color:#000080">Ładowanie...</span><br><br>
-        <b>Znak zodiaku Mai:</b><br>
-        <span>♊ Bliźnięta / ♍ Panna</span>
-      </div>
+  <h3>INFO &amp; IMIENINY</h3>
+  <b>Dzisiaj imieniny:</b><br>
+  <span id="imieninyDzis" style="color:#000080">Ładowanie...</span><br><br>
+  <b>Znak zodiaku Mai:</b><br>
+  <span>♍ Panna</span><br><br>
+  <b>Aktualny znak zodiaku:</b><br>
+  <span id="zodiakDzis" style="color:#000080">Ładowanie...</span>
+</div>
+
+<script>
+  function pobierzZnakZodiaku(dostepnaData = new Date()) {
+    const dzien = dostepnaData.getDate();
+    const miesiac = dostepnaData.getMonth() + 1; // Styczeń to 1
+
+    if ((miesiac === 1 && dzien >= 20) || (miesiac === 2 && dzien <= 18)) return "♒ Wodnik";
+    if ((miesiac === 2 && dzien >= 19) || (miesiac === 3 && dzien <= 20)) return "♓ Ryby";
+    if ((miesiac === 3 && dzien >= 21) || (miesiac === 4 && dzien <= 19)) return "♈ Baran";
+    if ((miesiac === 4 && dzien >= 20) || (miesiac === 5 && dzien <= 20)) return "♉ Byk";
+    if ((miesiac === 5 && dzien >= 21) || (miesiac === 6 && dzien <= 20)) return "♊ Bliźnięta";
+    if ((miesiac === 6 && dzien >= 21) || (miesiac === 7 && dzien <= 22)) return "♋ Rak";
+    if ((miesiac === 7 && dzien >= 23) || (miesiac === 8 && dzien <= 22)) return "♌ Lew";
+    if ((miesiac === 8 && dzien >= 23) || (miesiac === 9 && dzien <= 22)) return "♍ Panna";
+    if ((miesiac === 9 && dzien >= 23) || (miesiac === 10 && dzien <= 22)) return "♎ Waga";
+    if ((miesiac === 10 && dzien >= 23) || (miesiac === 11 && dzien <= 21)) return "♏ Skorpion";
+    if ((miesiac === 11 && dzien >= 22) || (miesiac === 12 && dzien <= 21)) return "♐ Strzelec";
+    return "♑ Koziorożec";
+  }
+
+  // Wstawienie aktualnego znaku zodiaku do elementu HTML
+  document.getElementById("zodiakDzis").innerText = pobierzZnakZodiaku();
+</script>
 
       <div class="box">
         <h3>CHMURA TAGOW</h3>
