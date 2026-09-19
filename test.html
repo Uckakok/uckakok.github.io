@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>*~*~ zyczeniaDlaMai.pl ~*~* :: Oficjalna Strona Zyczen dla MAI !!! ~*~*</title>
+<style>
+  :root{
+    --tlo:#000080; --panel:#c0c0c0; --panel2:#ffffcc; --tekst:#000000;
+    --link:#0000ee; --akcent:#ff00ff;
+  }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --tlo:#000080; --tekst:#000000; } }
+  :root[data-theme="dark"]{ --tlo:#000080; --tekst:#000000; }
+
+  html,body{margin:0;padding:0;}
+  body{
+    background-color:var(--tlo);
+    background-image:
+      radial-gradient(circle at 10px 10px, rgba(255,255,255,.55) 1px, transparent 2px),
+      radial-gradient(circle at 40px 32px, rgba(255,255,0,.45) 1px, transparent 2px),
+      radial-gradient(circle at 25px 50px, rgba(255,0,255,.35) 1px, transparent 2px);
+    background-size:60px 60px;
+    color:var(--tekst);
+    font-family:"Comic Sans MS","Comic Sans",cursive,"Trebuchet MS",sans-serif;
+    font-size:15px;
+  }
+  .ramka{max-width:900px;margin:12px auto;padding:0 8px;background:var(--panel);border:6px ridge #ff00ff;}
+  header.top{text-align:center;background:#000;border:4px outset #ffff00;margin:8px 0;padding:10px 6px;}
+  h1{
+    margin:6px 0;font-size:34px;letter-spacing:1px;
+    background:linear-gradient(90deg,#ff0000,#ff8800,#ffff00,#00ff00,#00ffff,#0088ff,#ff00ff,#ff0000);
+    background-size:400% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:tecza 6s linear infinite;
+  }
+  @keyframes tecza{to{background-position:400% 0;}}
+  .podtytul{color:#00ff00;font-size:14px;}
+  .blink{animation:blink 1s steps(2,start) infinite;}
+  @keyframes blink{to{visibility:hidden;}}
+  .obrot{animation:obrot 4s linear infinite;display:inline-block;}
+  @keyframes obrot{to{transform:rotate(360deg);}}
+  .skacze{display:inline-block;animation:skacze 1.2s ease-in-out infinite;}
+  @keyframes skacze{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .plywa{display:inline-block;animation:plywa 3s ease-in-out infinite;}
+  @keyframes plywa{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-10px) rotate(4deg)}}
+
+  marquee{background:#ffff00;border:2px inset #808080;padding:3px;font-weight:bold;color:#cc0000;}
+
+  nav.pasek{background:#008080;border:3px outset #c0c0c0;padding:6px;text-align:center;margin:8px 0;}
+  nav.pasek a{color:#ffff00;font-weight:bold;text-decoration:none;padding:0 6px;}
+  nav.pasek a:hover{color:#ff00ff;text-decoration:underline overline;}
+
+  table.uklad{width:100%;border-collapse:separate;border-spacing:6px;}
+  td.bok{width:185px;vertical-align:top;}
+  td.srodek{vertical-align:top;}
+  @media (max-width:760px){
+    table.uklad, table.uklad tbody, table.uklad tr, table.uklad td{display:block;width:auto !important;}
+  }
+
+  .box{background:var(--panel2);border:3px groove #800080;padding:8px;margin-bottom:10px;}
+  .box h3{margin:0 0 6px 0;background:#800080;color:#fff;padding:3px 5px;font-size:14px;text-align:center;}
+
+  .zyczenie{background:#ffffff;border:3px double #ff00ff;padding:10px 12px;margin:0 0 14px 0;}
+  .zyczenie h2{font-size:18px;margin:0 0 6px 0;color:#cc0066;border-bottom:2px dotted #808080;padding-bottom:4px;}
+  .zyczenie .meta{font-size:12px;color:#006600;margin-bottom:8px;}
+  .wiersz{font-size:16px;line-height:1.7;color:#000080;white-space:pre-wrap;}
+  .wiersz em{color:#cc0000;font-style:normal;font-weight:bold;}
+  .super{background:#ffff99;border:2px dashed #ff6600;padding:6px;margin-top:8px;font-size:13px;}
+  .nowy{background:#ff0000;color:#ffff00;font-size:10px;font-family:Verdana,sans-serif;padding:1px 4px;border:1px solid #fff;vertical-align:middle;}
+
+  .tagi{margin-top:8px}
+  .tag{
+    display:inline-block;font-family:Verdana,sans-serif;font-size:11px;
+    background:linear-gradient(180deg,#ffffff,#d6d6ff);color:#000080;
+    border:2px outset #9999ff;padding:1px 6px;margin:2px 3px 2px 0;cursor:pointer;
+  }
+  .tag:hover{background:#ffff00;}
+  .tag.wybrany{background:#ff00ff;color:#fff;border-style:inset;}
+
+  .formularz{background:#e0ffe0;border:4px ridge #00cc00;padding:10px;margin-bottom:14px;}
+  .formularz h2{margin:0 0 8px 0;font-size:19px;color:#006600;text-align:center;}
+  .formularz input,.formularz textarea,.formularz button{font-family:"Comic Sans MS",cursive;font-size:14px;}
+  .formularz input[type=text],.formularz textarea{width:96%;border:2px inset #808080;padding:3px;}
+  .formularz button{font-size:16px;font-weight:bold;padding:5px 14px;background:linear-gradient(180deg,#ffff99,#ffcc00);border:3px outset #ff9900;cursor:pointer;}
+  .formularz button:hover{background:linear-gradient(180deg,#ffff00,#ff9900);}
+  .etykieta{font-size:13px;color:#006600;font-weight:bold;}
+
+  .licznik{display:inline-block;background:#000;color:#00ff00;font-family:"Courier New",monospace;font-size:22px;letter-spacing:3px;padding:4px 8px;border:3px inset #808080;}
+  .gwiazdki{color:#ffcc00;font-size:20px;}
+  hr.ozdobna{border:none;height:8px;background:repeating-linear-gradient(90deg,#ff0000 0 12px,#ffff00 12px 24px,#00ff00 24px 36px,#00ffff 36px 48px,#ff00ff 48px 60px);}
+  footer{text-align:center;font-size:12px;background:#000;color:#00ff00;padding:10px;border:3px outset #808080;margin:10px 0;}
+  .przycisk88{display:inline-block;width:88px;height:31px;line-height:31px;text-align:center;font-size:10px;font-family:Verdana,sans-serif;font-weight:bold;background:linear-gradient(180deg,#333,#000);color:#0f0;border:1px solid #0f0;margin:2px;}
+  .ogien{color:#ff6600;font-weight:bold;}
+  .wpis{background:#fff;border:1px dotted #808080;padding:5px;margin:5px 0;font-size:13px;}
+  .kotwice a{color:var(--link);}
+  .clip{vertical-align:middle;}
+  .pasekClipart{text-align:center;background:#fff;border:2px inset #808080;padding:4px;margin:8px 0;font-size:26px;}
+  .iskra{position:fixed;pointer-events:none;font-size:14px;z-index:99;transition:opacity .8s linear;}
+</style>
+</head>
+<body>
+
+<div class="ramka">
+
+  <header class="top">
+    <div class="gwiazdki">.*･｡ﾟ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ﾟ｡･*.</div>
+    <div>
+      <!-- clip art: tort -->
+      <svg class="clip plywa" width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
+        <ellipse cx="32" cy="54" rx="26" ry="6" fill="#ff99cc"/>
+        <rect x="6" y="34" width="52" height="20" rx="3" fill="#ffccdd" stroke="#cc3366" stroke-width="2"/>
+        <rect x="6" y="30" width="52" height="8" rx="4" fill="#fff0f5" stroke="#cc3366" stroke-width="2"/>
+        <rect x="20" y="16" width="3" height="14" fill="#66ccff"/>
+        <rect x="31" y="14" width="3" height="16" fill="#ffff66"/>
+        <rect x="42" y="16" width="3" height="14" fill="#99ff99"/>
+        <circle cx="21.5" cy="13" r="4" fill="#ff6600"/><circle cx="32.5" cy="11" r="4" fill="#ff6600"/><circle cx="43.5" cy="13" r="4" fill="#ff6600"/>
+      </svg>
+      <h1 style="display:inline-block;vertical-align:middle">zyczeniaDlaMai.pl</h1>
+      <!-- clip art: balony -->
+      <svg class="clip plywa" width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M22 30 L26 56" stroke="#fff" stroke-width="1.5" fill="none"/>
+        <path d="M42 28 L36 56" stroke="#fff" stroke-width="1.5" fill="none"/>
+        <ellipse cx="22" cy="18" rx="12" ry="15" fill="#ff3366"/>
+        <ellipse cx="42" cy="16" rx="11" ry="14" fill="#33ccff"/>
+        <ellipse cx="18" cy="12" rx="3" ry="5" fill="#ffffff" opacity=".6"/>
+        <ellipse cx="38" cy="10" rx="3" ry="4" fill="#ffffff" opacity=".6"/>
+      </svg>
+    </div>
+    <div class="podtytul">
+      ~*~ NAJWIEKSZA W POLSCE BAZA ZYCZEN URODZINOWYCH DLA MAI ~*~<br>
+      <span class="blink">★ TERAZ Z MOZLIWOSCIA DODAWANIA WLASNYCH ZYCZEN ★</span>
+    </div>
+    <div class="gwiazdki">.*･｡ﾟ ★ ☆ ★ ☆ ★ ☆ ★ ☆ ★ ﾟ｡･*.</div>
+  </header>
+
+  <marquee scrollamount="6">*** WSZYSTKIEGO NAJLEPSZEGO MAJU !!! *** mozesz juz dodac wlasne zyczenia formularzem ponizej *** pamietaj o tagach !!! *** pozdrowienia dla wszystkich ktorzy znaja Maje *** strona zaktualizowana o 247 nowych zyczen ***</marquee>
+
+  <div class="pasekClipart">
+    🎈 🎂 ✉️ 🌟 💐 🎁 🌈 🕊️ 🎉 🍀 💌 🦋 🌸 ⭐ 🎊
+  </div>
+
+  <nav class="pasek">
+    <a href="#dodaj">DODAJ ZYCZENIA</a> |
+    <a href="#start">STRONA GLOWNA</a> |
+    <a href="#zyczenia">ZYCZENIA</a> |
+    <a href="#ksiega">KSIEGA GOSCI</a> |
+    <a href="#linki">MOJE LINKI</a> |
+    <a href="#kontakt">KONTAKT</a>
+  </nav>
+
+  <table class="uklad"><tr>
+    <td class="bok">
+
+      <div class="box" style="text-align:center">
+        <h3>LICZNIK ODWIEDZIN</h3>
+        <span class="licznik" id="licznik">0001337</span><br>
+        <small>Jestes <b id="numerGoscia">1337</b> osoba ktora zlozyla Mai zyczenia!</small>
+        <div style="margin-top:6px">
+          <!-- clip art: kopertka -->
+          <svg class="clip skacze" width="44" height="30" viewBox="0 0 44 30" aria-hidden="true">
+            <rect x="1" y="1" width="42" height="28" fill="#ffffff" stroke="#000080" stroke-width="2"/>
+            <path d="M1 1 L22 17 L43 1" fill="none" stroke="#cc0000" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="box">
+        <h3>CHMURA TAGOW</h3>
+        <div id="chmuraTagow" style="font-size:12px"></div>
+        <div style="margin-top:6px"><button onclick="filtruj(null)" style="font-size:11px">POKAZ WSZYSTKIE</button></div>
+      </div>
+
+      <div class="box">
+        <h3>MENU DZIALOW</h3>
+        <div class="kotwice">
+          ► <a href="#dodaj">Dodaj wlasne zyczenia</a><br>
+          ► <a href="#zyczenia">Zyczenia wierszem</a><br>
+          ► <a href="#zyczenia">Zyczenia proza</a><br>
+          ► <a href="#zyczenia">Zyczenia od rodziny</a><br>
+          ► <a href="#zyczenia">Zyczenia od kolegow z forti</a><br>
+          ► <a href="#zyczenia">Zyczenia od zakonnic</a><br>
+          ► <a href="#ksiega">Ksiega gosci</a><br>
+          ► <a href="#linki">Webring Zyczen</a>
+        </div>
+      </div>
+
+      <div class="box">
+        <h3>ZYCZENIE DNIA</h3>
+        <small><i>"Zeby Mai kazdy dzien zaczynal sie lepiej niz poprzedni, a konczyl lepiej niz sie zaczal."</i><br>
+        — wylosowano z bazy <b>4821</b> zyczen</small>
+      </div>
+
+      <div class="box">
+        <h3>ANKIETA</h3>
+        <small>
+          Czy Maja jest najlepsza?<br>
+          <label><input type="radio" name="ankieta" checked> TAK</label><br>
+          <label><input type="radio" name="ankieta"> oczywiscie ze tak</label><br>
+          <label><input type="radio" name="ankieta"> zdecydowanie tak</label><br>
+          <button onclick="glosuj()">GLOSUJ!</button>
+          <div id="wynik" style="color:#006600"></div>
+        </small>
+      </div>
+
+      <div class="box" style="text-align:center">
+        <h3>STATUS STRONY</h3>
+        <!-- clip art: under construction -->
+        <svg class="clip" width="80" height="60" viewBox="0 0 80 60" aria-hidden="true">
+          <polygon points="40,4 76,52 4,52" fill="#ffcc00" stroke="#000" stroke-width="3"/>
+          <rect x="36" y="18" width="8" height="18" fill="#000"/>
+          <rect x="36" y="40" width="8" height="7" fill="#000"/>
+        </svg>
+        <div class="ogien blink">🚧 W BUDOWIE 🚧</div>
+        <small>Dzial "Zyczenia po angielsku" juz wkrotce!!</small>
+      </div>
+
+      <div class="box" style="text-align:center">
+        <h3>ULUBIENIEC STRONY</h3>
+        <!-- clip art: kotek -->
+        <svg class="clip skacze" width="70" height="60" viewBox="0 0 70 60" aria-hidden="true">
+          <ellipse cx="35" cy="44" rx="20" ry="13" fill="#ffaa33"/>
+          <circle cx="35" cy="24" r="16" fill="#ffaa33"/>
+          <polygon points="22,14 20,0 32,9" fill="#ffaa33"/>
+          <polygon points="48,14 50,0 38,9" fill="#ffaa33"/>
+          <circle cx="29" cy="23" r="3" fill="#000"/><circle cx="41" cy="23" r="3" fill="#000"/>
+          <polygon points="35,28 32,32 38,32" fill="#cc3366"/>
+          <path d="M55 44 q12 -6 8 -18" stroke="#ffaa33" stroke-width="6" fill="none" stroke-linecap="round"/>
+        </svg>
+        <br><small>Kotek zyczy Mai sto lat!</small>
+      </div>
+
+    </td>
+
+    <td class="srodek">
+
+      <a id="dodaj"></a>
+      <div class="formularz">
+        <h2>✏️ DODAJ SWOJE ZYCZENIA DLA MAI ✏️</h2>
+        <p style="margin:2px 0;font-size:13px;text-align:center">
+          Twoje zyczenia pojawia sie <b>NA SAMEJ GORZE</b> listy! <span class="nowy blink">NOWOSC!</span>
+        </p>
+        <p style="margin:6px 0">
+          <span class="etykieta">Tytul zyczen:</span><br>
+          <input type="text" id="poleTytul" placeholder="np. Najserdeczniejsze zyczenia od cioci">
+        </p>
+        <p style="margin:6px 0">
+          <span class="etykieta">Podpis (od kogo):</span><br>
+          <input type="text" id="poleAutor" placeholder="np. Kasia z podworka">
+        </p>
+        <p style="margin:6px 0">
+          <span class="etykieta">Tresc zyczen:</span><br>
+          <textarea id="poleTresc" rows="5" placeholder="Droga Maju, z okazji Twoich urodzin zycze Ci..."></textarea>
+        </p>
+        <p style="margin:6px 0">
+          <span class="etykieta">Tagi (oddzielone przecinkami):</span><br>
+          <input type="text" id="poleTagi" placeholder="wiersz, rodzina, urodziny">
+          <br><small>Popularne: <span id="podpowiedziTagow"></span></small>
+        </p>
+        <p style="text-align:center;margin:10px 0 2px">
+          <button onclick="dodajZyczenie()">🎉 OPUBLIKUJ ZYCZENIA 🎉</button>
+          <button onclick="wyczyscMoje()" style="font-size:12px;background:#ddd;border:2px outset #999">usun moje wpisy</button>
+        </p>
+        <div id="komunikatForm" style="text-align:center;color:#cc0000;font-weight:bold"></div>
+      </div>
+
+      <div class="box">
+        <h3 id="naglowekListy">WSZYSTKIE ZYCZENIA</h3>
+        <div id="filtrInfo" style="font-size:12px;text-align:center"></div>
+      </div>
+
+      <div id="listaZyczen"></div>
+
+      <hr class="ozdobna">
+      <a id="start"></a>
+      <div class="box">
+        <h3>KILKA SLOW O STRONIE</h3>
+        <p style="margin:4px 0">
+          Witam Cie serdecznie na <b>zyczeniaDlaMai.pl</b> — jedynej stronie w calym internecie
+          poswieconej wylacznie skladaniu zyczen dla <b>MAI</b>. Strona powstala z potrzeby serca,
+          poniewaz zyczen bylo tak duzo, ze nie miescily sie juz na kartce.
+        </p>
+        <p style="margin:4px 0">
+          Powyzej widzisz <b>wybrane</b> zyczenia z naszej bazy (obecnie <b>4821</b> pozycji).
+          Reszta dostepna po przewinieciu — albo po dolaczeniu do naszej listy mailingowej.
+        </p>
+        <div class="super">
+          UWAGA! Strona najlepiej wyglada w rozdzielczosci <b>800x600</b> w przegladarce
+          Internet Explorer 5.0 lub Netscape Navigator. Wlacz glosniki! 🎵 (plik <i>urodziny.mid</i> nie zaladowal sie — sprobuj odswiezyc)
+        </div>
+      </div>
+
+      <div style="text-align:center;background:#ffff99;border:3px dashed #ff0000;padding:10px;margin:10px 0">
+        <b>... wyswietlono <span id="ileWidac">8</span> z 4821 zyczen ...</b><br>
+        <button onclick="wiecej()" style="font-family:'Comic Sans MS';font-size:15px;padding:5px 12px">POKAZ WIECEJ ZYCZEN &gt;&gt;</button>
+        <div id="komunikat" style="color:#cc0000;font-weight:bold"></div>
+      </div>
+
+      <hr class="ozdobna">
+      <a id="ksiega"></a>
+      <div class="box">
+        <h3>KSIEGA GOSCI</h3>
+        <div id="wpisy">
+          <div class="wpis"><b>Kasia</b> napisala: Najlepsza strona w sieci!! Sto lat Maju!!! :))))</div>
+          <div class="wpis"><b>anonim</b> napisal: fajna strona, pozdro dla Mai</div>
+          <div class="wpis"><b>Kuzyn Krzysiek</b> napisal: Maju zycze wszystkiego dobrego, odbierz telefon bo dzwonie od rana</div>
+        </div>
+        <p>
+          Podpis: <input id="imie" size="18" placeholder="Twoje imie"><br>
+          <textarea id="tresc" rows="3" placeholder="Krotkie pozdrowienia..." style="width:96%"></textarea><br>
+          <button onclick="dodajWpis()">WYSLIJ POZDROWIENIA !!!</button>
+        </p>
+      </div>
+
+      <a id="linki"></a>
+      <div class="box">
+        <h3>MOJE LINKI / WEBRING</h3>
+        <div style="text-align:center">
+          <span class="przycisk88">ZYCZENIA.NET</span>
+          <span class="przycisk88">SUPER GIFY</span>
+          <span class="przycisk88">MAJA RULEZ</span>
+          <span class="przycisk88">FORTI FANS</span>
+          <span class="przycisk88">KARTKI ONLINE</span>
+          <span class="przycisk88">BEST VIEWED IE5</span>
+        </div>
+        <small>Chcesz wymienic sie linkami? Napisz na gadu-gadu (numer w dziale kontakt).</small>
+      </div>
+
+      <a id="kontakt"></a>
+      <div class="box">
+        <h3>KONTAKT</h3>
+        <small>
+          e-mail: zyczenia(malpa)zyczeniadlamai.pl<br>
+          GG: 1234567 &nbsp;|&nbsp; Strone prowadzi: Administrator (fan Mai nr 1)<br>
+          Wszelkie prawa zastrzezone © 2000
+        </small>
+      </div>
+
+    </td>
+  </tr></table>
+
+  <div class="pasekClipart">🌻 🐾 💖 🎠 🍭 🌙 🎀 🐣 🍓 🎪 🧚 🌷</div>
+
+  <footer>
+    zyczeniaDlaMai.pl &nbsp;::&nbsp; strona zaktualizowana: dzisiaj &nbsp;::&nbsp;
+    <span class="blink">SIGN MY GUESTBOOK!</span><br>
+    Ta strona nie bylaby mozliwa bez Mai. Dziekujemy Ci, Maju. 🎂🎈
+  </footer>
+
+</div>
+
+<script>
+  var KLUCZ = 'zyczeniaMai_posty_v1';
+
+  var wbudowane = [
+    {
+      nr: 4821,
+      tytul: 'Zyczenia glowne, oficjalne i najwazniejsze',
+      autor: 'Redakcja',
+      meta: 'Dodano: dzisiaj, godz. 00:01 | Ocena: ★★★★★ (982 glosy)',
+      tresc: 'W dniu twoich urodzin droga Maju,\nŻyczę by żyło Ci się niczym w raju,\nBy <em>forti</em> zawsze był dla ciebie miły,\nBy twoje <em>zakonnice</em> Cię lubiły.\nŻebyś na perkusji najlepiej ze wszystkich grała\nA za swą piękną muzykę <em>dyplom od prezydenta</em> dostała',
+      html: true,
+      wyroznione: 'To zyczenie zostalo uznane przez redakcje za ZYCZENIE ROKU. Gratulacje dla autora!',
+      tagi: ['wiersz','urodziny','klasyka','forti','szkola']
+    },
+    { nr:4820, tytul:'A tymczasem w dziale "zyczenia krotkie"...', autor:'Sasiadka z gory', meta:'Dodano: wczoraj | Ocena: ★★★★☆',
+      tresc:'Maju! Wszystkiego najlepszego, duzo zdrowia, szczescia, pomyslnosci, spelnienia marzen, sto lat, dwiescie lat, a najlepiej niech to trwa bez konca.', tagi:['proza','krotkie','urodziny'] },
+    { nr:4819, tytul:'Ponadto chcialbym zyczyc, co nastepuje', autor:'Wujek Zbyszek', meta:'Dodano: 2 dni temu | Ocena: ★★★★★',
+      tresc:'Niniejszym zyczy sie Mai: nieskonczonej ilosci dobrych dni, zerowej ilosci zlych dni, oraz odpowiedniej ilosci dni srednich, zeby bylo z czym porownywac. Zyczenia wchodza w zycie z dniem urodzin i obowiazuja bezterminowo.', tagi:['urzedowe','smieszne','rodzina'] },
+    { nr:4818, tytul:'Z zupelnie innej beczki, ale tez zyczenia', autor:'Babcia Jadzia', meta:'Dodano: 3 dni temu | Ocena: ★★★★★',
+      tresc:'Sto lat Maju, sto lat jeszcze,\nNiech Ci zycie nie da w kosc,\nNiech Ci sypie sie szczescie\nTak jak konfetti — gesto i dosc.', tagi:['wiersz','rodzina','urodziny'] },
+    { nr:4817, tytul:'Nawiazujac do poprzednich zyczen, dodam jeszcze', autor:'Kolezanka z lawki', meta:'Dodano: w tym tygodniu | Ocena: ★★★★☆',
+      tresc:'Zycze Ci Maju, zeby autobus zawsze przyjezdzal punktualnie, zeby w sklepie zawsze byla Twoja ulubiona bulka, i zeby kazdy Twoj pomysl wychodzil lepiej niz zakladalas.', tagi:['praktyczne','przyjaciele'] },
+    { nr:4816, tytul:'Przy okazji zyczen chcialbym tez wspomniec o forti', autor:'Kumpel z lobby', meta:'Dodano: dawno temu | Ocena: ★★★★☆',
+      tresc:'Zycze Ci samych dobrych lobby, zerowego lagu i kolegow ktorzy nie kradna lootu. Zeby forti byl dla Ciebie zawsze mily — tak jak zyczyl autor zyczenia #4821, i jak zycza Ci wszyscy.', tagi:['forti','gaming','smieszne'] },
+    { nr:4815, tytul:'I jeszcze jedno, zanim zapomne', autor:'Anonimowy uczen', meta:'Dodano: kiedys | Ocena: ★★★★★',
+      tresc:'Zeby zakonnice zawsze byly w dobrym humorze, zeby sprawdziany byly zapowiedziane, a dzwonek dzwonil zawsze wtedy kiedy trzeba. Sto lat Maju!', tagi:['szkola','smieszne'] },
+    { nr:4814, tytul:'Na koniec cos od serca', autor:'Ktos kto pamieta', meta:'Dodano: bardzo dawno | Ocena: ★★★★★',
+      tresc:'Maju, zycze Ci zeby ludzie wokol Ciebie byli tacy, jak Ty jestes dla nich. To chyba najwiecej co mozna komus zyczyc.', tagi:['od serca','przyjaciele'] }
+  ];
+
+  var moje = [];
+  try { moje = JSON.parse(localStorage.getItem(KLUCZ) || '[]'); } catch(e){ moje = []; }
+  if(!Array.isArray(moje)) moje = [];
+
+  var aktywnyTag = null;
+
+  function wszystkie(){ return moje.concat(wbudowane); }
+
+  function esc(s){
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function rysujListe(){
+    var lista = document.getElementById('listaZyczen');
+    lista.innerHTML = '';
+    var dane = wszystkie().filter(function(p){
+      return !aktywnyTag || (p.tagi || []).map(function(t){return t.toLowerCase();}).indexOf(aktywnyTag) > -1;
+    });
+
+    document.getElementById('filtrInfo').innerHTML = aktywnyTag
+      ? 'Filtr: <b>#' + esc(aktywnyTag) + '</b> — znaleziono ' + dane.length + ' zyczen. <a href="#" onclick="filtruj(null);return false;">[pokaz wszystkie]</a>'
+      : 'Sortowanie: od najnowszych. Nowe zyczenia laduja na samej gorze.';
+    document.getElementById('ileWidac').textContent = dane.length;
+
+    dane.forEach(function(p){
+      var d = document.createElement('div');
+      d.className = 'zyczenie';
+      var naglowek = '<h2>#' + p.nr + ' — ' + esc(p.tytul) + (p.nowe ? ' <span class="nowy blink">NEW!</span>' : '') + '</h2>';
+      var meta = '<div class="meta">' + esc(p.meta) + (p.autor ? ' | Od: <b>' + esc(p.autor) + '</b>' : '') + '</div>';
+      var tresc = '<div class="wiersz">' + (p.html ? p.tresc.replace(/\n/g,'<br>') : esc(p.tresc).replace(/\n/g,'<br>')) + '</div>';
+      var extra = p.wyroznione ? '<div class="super">★ ' + esc(p.wyroznione) + '</div>' : '';
+      d.innerHTML = naglowek + meta + tresc + extra + '<div class="tagi"></div>';
+      var box = d.querySelector('.tagi');
+      (p.tagi || []).forEach(function(t){
+        var s = document.createElement('span');
+        s.className = 'tag' + (aktywnyTag === t.toLowerCase() ? ' wybrany' : '');
+        s.textContent = '#' + t;
+        s.onclick = function(){ filtruj(t.toLowerCase()); };
+        box.appendChild(s);
+      });
+      lista.appendChild(d);
+    });
+
+    rysujChmure();
+  }
+
+  function rysujChmure(){
+    var licz = {};
+    wszystkie().forEach(function(p){
+      (p.tagi||[]).forEach(function(t){ t = t.toLowerCase(); licz[t] = (licz[t]||0)+1; });
+    });
+    var klucze = Object.keys(licz).sort(function(a,b){ return licz[b]-licz[a]; });
+    var c = document.getElementById('chmuraTagow');
+    c.innerHTML = '';
+    klucze.forEach(function(t){
+      var s = document.createElement('span');
+      s.className = 'tag' + (aktywnyTag === t ? ' wybrany' : '');
+      s.style.fontSize = (10 + Math.min(licz[t],5)*2) + 'px';
+      s.textContent = '#' + t + ' (' + licz[t] + ')';
+      s.onclick = function(){ filtruj(t); };
+      c.appendChild(s);
+    });
+    var p = document.getElementById('podpowiedziTagow');
+    p.textContent = klucze.slice(0,6).map(function(t){return '#'+t;}).join(', ');
+  }
+
+  function filtruj(t){
+    aktywnyTag = t;
+    document.getElementById('naglowekListy').textContent = t ? ('ZYCZENIA Z TAGIEM: #' + t.toUpperCase()) : 'WSZYSTKIE ZYCZENIA';
+    rysujListe();
+    document.getElementById('listaZyczen').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  function zapisz(){
+    try { localStorage.setItem(KLUCZ, JSON.stringify(moje)); } catch(e){}
+  }
+
+  function dodajZyczenie(){
+    var tytul = document.getElementById('poleTytul').value.trim();
+    var autor = document.getElementById('poleAutor').value.trim() || 'anonim';
+    var tresc = document.getElementById('poleTresc').value.trim();
+    var tagi = document.getElementById('poleTagi').value.split(',').map(function(t){return t.trim();}).filter(Boolean).slice(0,8);
+    var k = document.getElementById('komunikatForm');
+    if(!tresc){ k.textContent = 'Najpierw wpisz tresc zyczen dla Mai!'; return; }
+    if(!tytul) tytul = 'Zyczenia od ' + autor;
+    if(tagi.length === 0) tagi = ['bez-tagu'];
+
+    var maxNr = wszystkie().reduce(function(a,p){ return Math.max(a, p.nr||0); }, 4821);
+    var teraz = new Date();
+    moje.unshift({
+      nr: maxNr + 1,
+      tytul: tytul,
+      autor: autor,
+      meta: 'Dodano: ' + teraz.toLocaleString('pl-PL') + ' | Ocena: ★★★★★',
+      tresc: tresc,
+      tagi: tagi,
+      nowe: true
+    });
+    zapisz();
+    aktywnyTag = null;
+    document.getElementById('naglowekListy').textContent = 'WSZYSTKIE ZYCZENIA';
+    rysujListe();
+    document.getElementById('poleTytul').value = '';
+    document.getElementById('poleTresc').value = '';
+    document.getElementById('poleTagi').value = '';
+    k.textContent = '✔ Zyczenia opublikowane! Sa teraz na samej gorze listy.';
+    setTimeout(function(){ k.textContent = ''; }, 5000);
+    document.getElementById('listaZyczen').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  function wyczyscMoje(){
+    if(moje.length === 0){ document.getElementById('komunikatForm').textContent = 'Nie masz jeszcze zadnych wlasnych wpisow.'; return; }
+    if(confirm('Na pewno usunac wszystkie Twoje wlasne zyczenia?')){
+      moje = []; zapisz(); rysujListe();
+    }
+  }
+
+  // licznik odwiedzin w stylu roku 2000
+  (function(){
+    var n = 1337;
+    try{
+      var z = localStorage.getItem('licznikMai');
+      n = z ? parseInt(z,10)+1 : 1337;
+      localStorage.setItem('licznikMai', String(n));
+    }catch(e){ n = 1337; }
+    var el = document.getElementById('licznik');
+    if(el) el.textContent = String(n).padStart(7,'0');
+    var g = document.getElementById('numerGoscia');
+    if(g) g.textContent = n;
+  })();
+
+  function glosuj(){ document.getElementById('wynik').textContent = 'Wynik: TAK — 100% (4821 glosow)'; }
+
+  var licznikKlikniec = 0;
+  function wiecej(){
+    licznikKlikniec++;
+    var teksty = [
+      'Ladowanie pozostalych 4813 zyczen... prosze czekac...',
+      'Serwer jest chwilowo przeciazony iloscia zyczen dla Mai.',
+      'Nadal laduje. Moze w miedzyczasie dopisz wlasne w formularzu na gorze?',
+      'Ok, zyczen jest po prostu za duzo. Uwierz nam na slowo.'
+    ];
+    document.getElementById('komunikat').textContent = teksty[Math.min(licznikKlikniec-1, teksty.length-1)];
+  }
+
+  function dodajWpis(){
+    var imie = document.getElementById('imie').value.trim() || 'anonim';
+    var tresc = document.getElementById('tresc').value.trim();
+    if(!tresc){ alert('Wpisz najpierw pozdrowienia dla Mai!'); return; }
+    var d = document.createElement('div');
+    d.className = 'wpis';
+    var b = document.createElement('b'); b.textContent = imie;
+    d.appendChild(b);
+    d.appendChild(document.createTextNode(' napisal(a): ' + tresc));
+    var lista = document.getElementById('wpisy');
+    lista.insertBefore(d, lista.firstChild);
+    document.getElementById('tresc').value = '';
+  }
+
+  // efekt iskierek za kursorem — klasyk z 2000 roku
+  var znaczki = ['✨','★','💖','🌟'];
+  var ostatnia = 0;
+  document.addEventListener('mousemove', function(e){
+    var t = Date.now();
+    if(t - ostatnia < 90) return;
+    ostatnia = t;
+    var s = document.createElement('div');
+    s.className = 'iskra';
+    s.textContent = znaczki[Math.floor(Math.random()*znaczki.length)];
+    s.style.left = e.clientX + 'px';
+    s.style.top = e.clientY + 'px';
+    document.body.appendChild(s);
+    setTimeout(function(){ s.style.opacity = '0'; }, 50);
+    setTimeout(function(){ s.remove(); }, 900);
+  });
+
+  rysujListe();
+</script>
+</body>
+</html>
